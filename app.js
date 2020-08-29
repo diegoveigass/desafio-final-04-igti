@@ -26,14 +26,7 @@ const app = express();
 //define o dominio de origem para consumo do servico
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(
-  cors({
-    origin:
-      process.env.PORT_CORS === ''
-        ? process.env.HOST_CORS
-        : `${process.env.HOST_CORS}:${process.env.PORT_CORS}`,
-  })
-);
+app.use(cors());
 
 app.use(gradeRouter);
 app.get('/', (req, res) => {
