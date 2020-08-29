@@ -8,6 +8,6 @@ const studentSchema = db.mongoose.Schema({
   lastModified: { type: Date, default: Date.now },
 });
 
-const Student = mongoose.model('students', studentSchema);
+const Student = db.mongoose.model('students', studentSchema);
 
 export default Student;
