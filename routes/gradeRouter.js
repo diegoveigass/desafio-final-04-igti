@@ -1,7 +1,7 @@
 import express from 'express';
 import controller from '../controllers/gradeController.js';
 
-const gradeRouter = express.Router();
+const gradeRouter = express();
 
 gradeRouter.post('/grade', controller.create);
 gradeRouter.get('/grade', controller.findAll);

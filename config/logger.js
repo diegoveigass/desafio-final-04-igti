@@ -1,6 +1,8 @@
-import 'dotenv/config.js';
+import dotenv from 'dotenv';
 import winston from 'winston';
 import winstondb from 'winston-mongodb';
+
+dotenv.config();
 
 const { combine, timestamp, label, printf } = winston.format;
 
@@ -16,7 +18,7 @@ const logger = createLogger({
     new transports.MongoDB({
       level: 'info',
       db: process.env.MONGODB,
-      collection: 'logs_grades',
+      collection: 'students',
       capped: true,
       cappedMax: 20,
       options: {
