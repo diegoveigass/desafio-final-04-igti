@@ -1,3 +1,4 @@
+import 'dotenv/config.js';
 import winston from 'winston';
 import winstondb from 'winston-mongodb';
 
