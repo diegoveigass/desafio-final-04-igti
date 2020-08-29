@@ -25,15 +25,15 @@ const create = async (request, response) => {
 };
 
 const findAll = async (request, response) => {
-  // const name = req.query.name;
+  const { name } = request.query;
 
   //condicao para o filtro no findAll
-  // var condition = name
-  //   ? { name: { $regex: new RegExp(name), $options: 'i' } }
-  //   : {};
+  var condition = name
+    ? { name: { $regex: new RegExp(name), $options: 'i' } }
+    : {};
 
   try {
-    const students = await Student.find();
+    const students = await Student.find(condition);
     logger.info(`GET /grade`);
     return response.json(students);
   } catch (error) {
@@ -122,7 +122,7 @@ const remove = async (request, response) => {
 
 const removeAll = async (request, response) => {
   try {
-    await Student.deleteMany();
+    await Student.deleteMany({});
     logger.info(`DELETE /grade`);
     return response.json({ ok: 'All students deleted!' });
   } catch (error) {

@@ -18,7 +18,7 @@ const logger = createLogger({
     new transports.MongoDB({
       level: 'info',
       db: process.env.MONGODB,
-      collection: 'students',
+      collection: 'logs_grades',
       capped: true,
       cappedMax: 20,
       options: {

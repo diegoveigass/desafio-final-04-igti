@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
+import { db } from '../models/index.js';
 
-const studentSchema = mongoose.Schema({
+const studentSchema = db.mongoose.Schema({
   name: { type: String, required: true },
   subject: { type: String, required: true },
   type: { type: String, required: true },

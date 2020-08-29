@@ -1,16 +1,25 @@
-import 'dotenv/config.js';
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+
 import { db } from './models/index.js';
 
-import gradeRouter from './routes/gradeRouter.js';
+import { gradeRouter } from './routes/gradeRouter.js';
 
-db.mongoose.connect(db.url, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: true,
-});
+(async () => {
+  try {
+    console.log('Conectando ao banco de dados MongoDB...');
+    await db.mongoose.connect(db.url, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useFindAndModify: false,
+    });
+    console.log('Conectado com sucesso...');
+  } catch (error) {
+    console.log(error);
+    process.exit();
+  }
+})();
 
 const app = express();
 
@@ -19,11 +28,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin:
+      process.env.PORT_CORS === ''
+        ? process.env.HOST_CORS
+        : `${process.env.HOST_CORS}:${process.env.PORT_CORS}`,
   })
 );
 
 app.use(gradeRouter);
+app.get('/', (req, res) => {
+  res.send('API em execucao');
+});
 
 app.listen(process.env.PORT || 3333, () => {
   console.log('API Executou');
