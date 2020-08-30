@@ -1,7 +1,5 @@
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
 import winston from 'winston';
-require('winston-mongodb').MongoDB;
+import winstondb from 'winston-mongodb';
 
 const { combine, timestamp, label, printf } = winston.format;
 
@@ -14,7 +12,8 @@ const myFormat = format.printf(({ level, message, label, timestamp }) => {
 const logger = createLogger({
   transports: [
     new transports.Console(),
-    new winston.transports.MongoDB({
+    new transports.MongoDB({
+      level: 'info',
       db: process.env.MONGODB,
       collection: 'logs_grades',
       capped: true,
