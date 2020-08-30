@@ -5,7 +5,6 @@ import cors from 'cors';
 import { db } from './models/index.js';
 
 import { gradeRouter } from './routes/gradeRouter.js';
-import { logger } from './config/logger.js';
 
 (async () => {
   try {
@@ -25,10 +24,9 @@ import { logger } from './config/logger.js';
 const app = express();
 
 //define o dominio de origem para consumo do servico
-app.use(logger);
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
 
 app.use(gradeRouter);
 app.get('/', (req, res) => {
